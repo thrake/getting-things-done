@@ -1,0 +1,9 @@
+{% if all_capture_list %}
+    <ul>
+    {% for capture in all_capture_list %}
+        <li><a href="/capture/{{ capture.id }}/">{{ capture.capture_text }}</a></li>
+    {% endfor %}
+    </ul>
+{% else %}
+    <p>No captures are available.</p>
+{% endif %}
