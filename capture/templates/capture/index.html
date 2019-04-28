@@ -1,15 +1,32 @@
+{% extends "base_generic.html" %}
+
+{% block content %}
+        
+<div class="ml-4 mr-4 mt-4">
+
+<h1>Things to do</h1>
+<br>
+<form action="{% url 'capture:capture' %}" method="POST">
+    <div class="form-group">
+        {% csrf_token %}
+        <input type="text" class="form-control" style="width: 250px" name="capture" value="" autofocus>
+    </div>
+        <button type="submit" class="btn btn-primary">Submit</button>
+</form>
+
 {% if all_capture_list %}
-    <ul>
+    <br>
+    <div class="d-flex bd-highlight">
+    <ul class="list-group">
     {% for capture in all_capture_list %}
-        <li><a href={% url 'capture:detail' capture.id %}>{{ capture.capture_text }}</a></li>
+        <li class="list-group-item"><a href={% url 'capture:detail' capture.id %}>{{ capture.capture_text }}</a></li>
     {% endfor %}
     </ul>
+    </div>
+</div>
 {% else %}
     <p>No captures are available.</p>
 {% endif %}
 
-<form action="{% url 'capture:capture' %}" method="POST">
-    {% csrf_token %}
-    <input type="text" name="capture" value="">
-    <input type="submit">
-</form>
+{% endblock content%}
+

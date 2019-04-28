@@ -7,7 +7,7 @@ from .models import Capture
 
 # Create your views here.
 def index(request):
-    all_capture_list = Capture.objects.order_by('-capture_date')[:20]
+    all_capture_list = Capture.objects.order_by('-capture_date')
     context = {'all_capture_list': all_capture_list}
     return render(request, 'capture/index.html', context)
 
@@ -16,7 +16,7 @@ def detail(request, capture_id):
     return render(request, 'capture/detail.html', {'capture': capture})    
 
 def all(request):
-    all_capture_list = Capture.objects.order_by('-capture_date')[:20]
+    all_capture_list = Capture.objects.order_by('-capture_date')
     output = ', '.join([c.capture_text for c in all_capture_list])
     return HttpResponse(output)
 
