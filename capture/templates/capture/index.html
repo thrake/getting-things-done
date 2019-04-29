@@ -5,13 +5,12 @@
 <div class="ml-4 mr-4 mt-4">
 
 <h1>Things to do</h1>
-<br>
 <form action="{% url 'capture:capture' %}" method="POST">
     <div class="form-group">
         {% csrf_token %}
         <input type="text" class="form-control" style="width: 250px" name="capture" value="" autofocus>
     </div>
-        <button type="submit" class="btn btn-primary">Submit</button>
+    <button type="submit" class="btn btn-primary">Submit</button>
 </form>
 
 {% if all_capture_list %}
@@ -24,6 +23,7 @@
     </ul>
     </div>
 </div>
+
 {% else %}
     <p>No captures are available.</p>
 {% endif %}
