@@ -1,26 +1,45 @@
 {% extends "base_generic.html" %}
 
 {% block content %}
-        
-<div class="ml-4 mr-4 mt-4">
 
-<h1>Things to do</h1>
-<form action="{% url 'capture:capture' %}" method="POST">
-    <div class="form-group">
-        {% csrf_token %}
-        <input type="text" class="form-control" style="width: 250px" name="capture" value="" autofocus>
+<div class="flex-container">
+    <div class="menu-left">
+        <div>
+            <a href= {% url 'capture:index' %}>Inbox ({{ amount }})</a>
+        </div>
+        <div>
+            <a href= {% url 'capture:index' %}>Menü 2</a>
+        </div>
+        <div>
+            <a href= {% url 'capture:index' %}>Menü 3</a>
+        </div>
+        <div>
+            <a href= {% url 'capture:index' %}>Menü 4</a>
+        </div>
+        <div>
+            <a href= {% url 'capture:index' %}>Menü 5</a>
+        </div>
     </div>
-    <button type="submit" class="btn btn-primary">Submit</button>
-</form>
+    <div class="item">
+        <h1>Things to do</h1>
+        <form action="{% url 'capture:capture' %}" method="POST">
+            <div class="form-group">
+                {% csrf_token %}
+                <input type="text" class="form-control" style="width: 250px" name="capture" value="" autofocus>
+            </div>
+            <button type="submit" class="btn btn-primary">Submit</button>
+        </form>
 
-{% if all_capture_list %}
-    <br>
-    <div class="d-flex bd-highlight">
-    <ul class="list-group">
-    {% for capture in all_capture_list %}
-        <li class="list-group-item"><a href={% url 'capture:detail' capture.id %}>{{ capture.capture_text }}</a></li>
-    {% endfor %}
-    </ul>
+        {% if all_capture_list %}
+            <br>
+            <ul class="list-group">
+            {% for capture in all_capture_list %}
+                <li class="list-group-item"><input type="checkbox" name="{{ capture.id }}">&nbsp;&nbsp;&nbsp;<a href={% url 'capture:detail' capture.id %} style="color:black">{{ capture.capture_text }}</a></li>
+            {% endfor %}
+            </ul>
+    </div>
+    <div class="menu-right">
+        This is the right menu
     </div>
 </div>
 

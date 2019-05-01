@@ -8,7 +8,9 @@ from .models import Capture
 # Create your views here.
 def index(request):
     all_capture_list = Capture.objects.order_by('-capture_date')
-    context = {'all_capture_list': all_capture_list}
+    amount = Capture.objects.filter(status=0).count()
+    context = {'all_capture_list': all_capture_list,
+               'amount': amount,}
     return render(request, 'capture/index.html', context)
 
 def detail(request, capture_id):
