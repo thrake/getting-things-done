@@ -15,7 +15,15 @@ def index(request):
 
 def detail(request, capture_id):
     capture = get_object_or_404(Capture, id=capture_id)
-    return render(request, 'capture/detail.html', {'capture': capture})    
+    print(capture)
+    print(capture.notes)
+    if request.method == "POST":
+        notes = request.POST['detail']
+        print(notes)
+        capture.notes = notes
+        capture.save()
+    context = {'capture': capture}
+    return render(request, 'capture/detail.html', context)    
 
 def all(request):
     all_capture_list = Capture.objects.order_by('-capture_date')

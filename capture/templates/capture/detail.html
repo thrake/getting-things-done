@@ -9,4 +9,14 @@
     {{ capture.capture_date }}
 </div>
 
+<form action="/capture/8/" method="POST"> 
+  <div class="form-group" style="width: 50%">
+    <label for="exampleFormControlTextarea1">Next action:</label>
+    {% csrf_token %}
+    <input type="text" class="form-control" style="width: 250px" name="detail" value="{% if capture.notes %}{{capture.notes}}{% endif %}" autofocus>
+  </div>
+  <button type="submit" class="btn btn-primary">Save</button>
+</form>
+
+
 {% endblock content%}

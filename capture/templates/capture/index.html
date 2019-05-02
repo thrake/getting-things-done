@@ -1,7 +1,7 @@
 {% extends "base_generic.html" %}
 
 {% block content %}
-
+ {% load static %}
 <div class="flex-container">
     <div class="menu-left">
         <div>
@@ -34,12 +34,13 @@
             <br>
             <ul class="list-group">
             {% for capture in all_capture_list %}
-                <li class="list-group-item"><input type="checkbox" name="{{ capture.id }}">&nbsp;&nbsp;&nbsp;<a href={% url 'capture:detail' capture.id %} style="color:black">{{ capture.capture_text }}</a></li>
+                <li class="list-group-item"><input type="checkbox" name="{{ capture.id }}">&nbsp;&nbsp;&nbsp;<a href={% url 'capture:detail' capture.id %} style="color:black">{{ capture.capture_text }}</a>
+                <a href="https://www.w3schools.com"><img src="{% static 'capture/images/cancel.png' %}" border="0" ></a></li>
             {% endfor %}
             </ul>
     </div>
     <div class="menu-right">
-        This is the right menu
+        This is the right menu        
     </div>
 </div>
 
