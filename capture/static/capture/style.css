@@ -10,23 +10,22 @@ body {
 }
 
 .flex-container {
-    height: 100%;
-    min-height: 100%;
     display: flex;
 }
 
 .item{
     height: 100%;
     flex-direction: column;
-    width: 60%;
-    padding: 0px 20px;
+    padding: 20px 0px 0px 280px;
 }
 
 .menu-left {
-    height: 100%;
+    min-height: 100%;
+    position: fixed;
+    width: 260px;
     flex-direction: column;
     padding: 30px;
-    background-color: black;
+    background-color: rgb(0, 0, 0);
 }
 
 .menu-left a {
@@ -48,7 +47,25 @@ body {
     height: 100%;
 }
 
+.align {
+    display: flex;
+    align-items: center;
+    justify-content: left;
+}
 
+/*
+i.fas,
+i.fab {
+    color: #818181;
+    font-size: 2em;
+    transition: 0.3s;
+}
+
+i.fas:hover,
+i.fab:hover {
+    color: #f1f1f1;
+}
+*/
 /* 
 body {
     background: white url("images/background.gif") no-repeat;

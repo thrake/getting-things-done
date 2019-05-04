@@ -1,52 +1,71 @@
 {% extends "base_generic.html" %}
 
 {% block content %}
- {% load static %}
+{% load static %}
 <div class="flex-container">
     <div class="menu-left">
         <div>
-            <a href= {% url 'capture:index' %}>Inbox ({{ amount }})</a>
+            <a href= {% url 'capture:index' %}><i class="fas fa-inbox fa-fw"></i> Inbox ({{ amount }})</a>
         </div>
         <div>
-            <a href= {% url 'capture:index' %}>Menü 2</a>
+            <a href= {% url 'capture:index' %}><i class="fas fa-star fa-fw"></i> Today</a>
         </div>
         <div>
-            <a href= {% url 'capture:index' %}>Menü 3</a>
+            <a href= {% url 'capture:index' %}><i class="fas fa-calendar-alt fa-fw"></i> Planned</a>
         </div>
         <div>
-            <a href= {% url 'capture:index' %}>Menü 4</a>
+            <a href= {% url 'capture:index' %}><i class="fas fa-folder-open fa-fw"></i> Anytime</a>
         </div>
         <div>
-            <a href= {% url 'capture:index' %}>Menü 5</a>
+            <a href= {% url 'capture:index' %}><i class="fas fa-book fa-fw"></i> Logbook</a>
+        </div>
+         <div>
+            <a href= {% url 'capture:paper_bin' %}><i class="fas fa-recycle fa-fw"></i> Paper bin ({{ bin_amount }})</a>
         </div>
     </div>
-    <div class="item">
-        <h1>Things to do</h1>
-        <form action="{% url 'capture:capture' %}" method="POST">
-            <div class="form-group">
-                {% csrf_token %}
-                <input type="text" class="form-control" style="width: 250px" name="capture" value="" autofocus>
-            </div>
-            <button type="submit" class="btn btn-primary">Submit</button>
-        </form>
+    <div class="item">   
 
-        {% if all_capture_list %}
-            <br>
+{% if all_capture_list %}
+        <h1>Inbox</h1>
+        <form class="form-inline" action="{% url 'capture:capture' %}" method="POST">
+            <div class="form-group mr-sm-2 mb-2">
+                {% csrf_token %}
+                <input type="text" class="form-control" name="capture" value="" autofocus>
+            </div>
+            <button type="submit" class="btn btn-primary mb-2">Submit</button>
+            
+        </form>
+        <p>
             <ul class="list-group">
             {% for capture in all_capture_list %}
                 <li class="list-group-item"><input type="checkbox" name="{{ capture.id }}">&nbsp;&nbsp;&nbsp;<a href={% url 'capture:detail' capture.id %} style="color:black">{{ capture.capture_text }}</a>
-                <a href="https://www.w3schools.com"><img src="{% static 'capture/images/cancel.png' %}" border="0" ></a></li>
+                <a href="{% url 'capture:delete' capture.id%}"><img src="{% static 'capture/images/cancel.png' %}" align="right" border="0" ></a></li>
             {% endfor %}
             </ul>
+        </p>
+{% endif %}
+
+{% if paper_bin_list %}
+    <h1>Paper bin</h1>
+        <p>
+            <ul class="list-group">
+            {% for capture in paper_bin_list %}
+                <li class="list-group-item"><input type="checkbox" name="{{ capture.id }}">&nbsp;&nbsp;&nbsp;<a href={% url 'capture:detail' capture.id %} style="color:black">{{ capture.capture_text }}</a>
+                <a href="{% url 'capture:delete' capture.id%}"><img src="{% static 'capture/images/cancel.png' %}" align="right" border="0" ></a></li>
+            {% endfor %}
+            </ul>
+        </p>
+{% endif %}
+
+{% if not paper_bin_list and not all_capture_list %}
+    <h1>Empty :)</h1>
+{% endif %}
+
     </div>
     <div class="menu-right">
         This is the right menu        
     </div>
 </div>
-
-{% else %}
-    <p>No captures are available.</p>
-{% endif %}
 
 {% endblock content%}
 
