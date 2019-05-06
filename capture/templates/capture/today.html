@@ -25,7 +25,7 @@
     </div>
     <div class="item">   
 
-{% if all_capture_list %}
+{% if all_today_list %}
         <h1>Inbox</h1>
         <form class="form-inline" action="{% url 'capture:capture' %}" method="POST">
             <div class="form-group mr-sm-2 mb-2">
@@ -37,29 +37,13 @@
         </form>
         <p>
             <ul class="list-group">
-            {% for capture in all_capture_list %}
+            {% for capture in all_today_list %}
                 <li class="list-group-item">
                     <a href="{% url 'capture:log_item' capture.id%}"><img src="{% static 'capture/images/checked.png' %}" align="left" border="0" ></a>&nbsp;&nbsp;&nbsp;<a href={% url 'capture:detail' capture.id %} style="color:black">{{ capture.capture_text }}</a>
                     <a href="{% url 'capture:delete' capture.id%}"><img src="{% static 'capture/images/cancel.png' %}" align="right" border="0" ></a></li>
             {% endfor %}
             </ul>
         </p>
-{% endif %}
-
-{% if paper_bin_list %}
-    <h1>Paper bin</h1>
-        <p>
-            <ul class="list-group">
-            {% for capture in paper_bin_list %}
-                <li class="list-group-item"><a href={% url 'capture:detail' capture.id %} style="color:black">{{ capture.capture_text }}&nbsp;&nbsp;</a>
-                <a href="{% url 'capture:delete' capture.id%}"><img src="{% static 'capture/images/cancel.png' %}" align="right" border="0" ></a></li>
-            {% endfor %}
-            </ul>
-        </p>
-{% endif %}
-
-{% if not paper_bin_list and not all_capture_list %}
-    <h1>Empty :)</h1>
 {% endif %}
 
     </div>

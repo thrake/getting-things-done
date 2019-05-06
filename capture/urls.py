@@ -16,5 +16,11 @@ urlpatterns = [
     path('capture/bin', views.paper_bin, name='paper_bin'),
     # ex; /capture/delete/5
     path('delete/<int:capture_id>', views.delete, name='delete'),
+    # ex; /capture/logbook
+    path('capture/logbook', views.logbook, name='logbook'),
+    # ex; /capture/log_item/5
+    path('capture/log_item/<int:capture_id>', views.log_item, name='log_item'),
+    # ex; /capture/today
+    path('capture/today', views.today, name='today'),
 ]
 

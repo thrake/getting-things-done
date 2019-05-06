@@ -1,3 +1,5 @@
+import datetime
+
 from django.http import HttpResponse, Http404, HttpResponseRedirect
 from django.shortcuts import get_object_or_404, render
 from django.urls import reverse
@@ -66,3 +68,31 @@ def delete(request,capture_id =None):
         object.category = 8
         object.save()
         return HttpResponseRedirect(reverse('capture:index', args=None))
+
+def logbook(request):
+    all_done_list = Capture.objects.filter(status=1).order_by('-capture_date')
+    amount = Capture.objects.filter(status=0, category=0).count()
+    bin_amount = Capture.objects.filter(category=8).count()
+    context = {
+        'all_done_list': all_done_list,
+        'amount': amount,
+        'bin_amount': bin_amount,
+               }
+    return render(request, 'capture/logbook.html', context)
+
+def log_item(request,capture_id =None):
+    object = Capture.objects.get(id=capture_id)
+    object.status = 1
+    object.save()
+    return HttpResponseRedirect(reverse('capture:index', args=None))
+
+def today(request):
+    all_today_list = Capture.objects.exclude(category=8).filter(status=0, capture_date__startswith=datetime.date.today()).order_by('-capture_date')
+    amount = Capture.objects.filter(status=0, category=0).count()
+    bin_amount = Capture.objects.filter(category=8).count()
+    context = {
+        'all_today_list': all_today_list,
+        'amount': amount,
+        'bin_amount': bin_amount,
+               }
+    return render(request, 'capture/today.html', context)
