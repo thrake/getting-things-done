@@ -9,18 +9,20 @@
     {{ capture.capture_date }}
 </div>
 
-<form action="/capture/8/" method="POST"> 
-  <div class="form-group" style="width: 50%">
-    <label for="exampleFormControlTextarea1">Next action:</label>
-    {% csrf_token %}
-    <input type="text" class="form-control" style="width: 250px" name="detail" value="{% if capture.notes %}{{capture.notes}}{% endif %}" autofocus>
+<form action="/capture/{{capture.id}}/" method="POST"> 
+  <div class="form-row">
+    <div class="form-group col-md-6" style="max-width: 300px">
+      <label for="inputNextAction">Next action:</label>
+      {% csrf_token %}
+      <input type="text" class="form-control" name="detail" value="{% if capture.notes %}{{capture.notes}}{% endif %}" autofocus>
+    </div>
+    <div class="form-group col-md-6" style="max-width: 300px">
+      <label for="chooseDate">When:</label>
+      <input type="date" class="form-control" name="date">
+    </div>
   </div>
+  
   <button type="submit" class="btn btn-primary">Save</button>
-</form>
-
-<form>
-  Birthday:
-  <input type="date" name="bday">
 </form>
 
 {% endblock content%}

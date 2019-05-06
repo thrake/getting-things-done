@@ -32,10 +32,11 @@ def paper_bin(request):
 
 def detail(request, capture_id):
     capture = get_object_or_404(Capture, id=capture_id)
-    print(capture)
-    print(capture.notes)
     if request.method == "POST":
         notes = request.POST['detail']
+        date = request.POST['date']
+        if date != "":
+            capture.due_date = date
         print(notes)
         capture.notes = notes
         capture.save()
