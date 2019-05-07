@@ -25,16 +25,23 @@
     </div>
     <div class="item">   
 
-{% if all_today_list %}
-        <h1>Today</h1>
+{% if all_calendar_items %}
+        <h1>Calendar</h1>
         <p>
+        {% regroup all_calendar_items by due_date as date_list %}
+
+        {% for due_date in date_list %}
+            <h3>{{ due_date.grouper }}</h3>
             <ul class="list-group" style="min-width: 307px">
-            {% for capture in all_today_list %}
-                <li class="list-group-item">
-                    <a href="{% url 'capture:log_item' capture.id%}"><img src="{% static 'capture/images/checked.png' %}" align="left" border="0" ></a>&nbsp;&nbsp;&nbsp;<a href={% url 'capture:detail' capture.id %} style="color:black">{{ capture.capture_text }}&nbsp;&nbsp;</a>
-                    <a href="{% url 'capture:delete' capture.id%}"><img src="{% static 'capture/images/cancel.png' %}" align="right" border="0" ></a></li>
-            {% endfor %}
+                {% for item in due_date.list %}
+                    <li class="list-group-item">
+                    <a href="{% url 'capture:log_item' item.id%}"><img src="{% static 'capture/images/checked.png' %}" align="left" border="0" ></a>&nbsp;&nbsp;&nbsp;<a href={% url 'capture:detail' item.id %} style="color:black">{{ item.capture_text }}&nbsp;&nbsp;</a>
+                    <a href="{% url 'capture:delete' item.id%}"><img src="{% static 'capture/images/cancel.png' %}" align="right" border="0" ></a>
+                    </li>
+                {% endfor %}
+                <br>
             </ul>
+        {% endfor %}
         </p>
 {% endif %}
 

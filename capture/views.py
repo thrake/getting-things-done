@@ -35,8 +35,7 @@ def detail(request, capture_id):
     if request.method == "POST":
         notes = request.POST['detail']
         date = request.POST['date']
-        if date != "":
-            capture.due_date = date
+        capture.due_date = date
         print(notes)
         capture.notes = notes
         capture.save()
@@ -88,7 +87,7 @@ def log_item(request,capture_id =None):
     return HttpResponseRedirect(reverse('capture:index', args=None))
 
 def today(request):
-    all_today_list = Capture.objects.exclude(category=8).filter(status=0, capture_date__startswith=datetime.date.today()).order_by('-capture_date')
+    all_today_list = Capture.objects.exclude(category=8).filter(status=0, due_date__startswith=datetime.date.today()).order_by('-capture_date')
     amount = Capture.objects.filter(status=0, category=0).count()
     bin_amount = Capture.objects.filter(category=8).count()
     context = {
@@ -97,3 +96,14 @@ def today(request):
         'bin_amount': bin_amount,
                }
     return render(request, 'capture/today.html', context)
+
+def calendar(request):
+    all_calendar_items = Capture.objects.exclude(category=8).filter(status=0, due_date__range=[datetime.date.today(), "9011-01-31"]).order_by('due_date')
+    amount = Capture.objects.filter(status=0, category=0).count()
+    bin_amount = Capture.objects.filter(category=8).count()
+    context = {
+        'all_calendar_items': all_calendar_items,
+        'amount': amount,
+        'bin_amount': bin_amount,
+               }
+    return render(request, 'capture/calendar.html', context)

@@ -11,7 +11,7 @@
             <a href= {% url 'capture:today' %}><i class="fas fa-star fa-fw"></i> Today</a>
         </div>
         <div>
-            <a href= {% url 'capture:index' %}><i class="fas fa-calendar-alt fa-fw"></i> Planned</a>
+            <a href= {% url 'capture:calendar' %}><i class="fas fa-calendar-alt fa-fw"></i> Planned</a>
         </div>
         <div>
             <a href= {% url 'capture:index' %}><i class="fas fa-folder-open fa-fw"></i> Anytime</a>
@@ -27,9 +27,9 @@
     <h1>Logbook</h1>
 {% if all_done_list %}
         <p>
-            <ul class="list-group">
+            <ul class="list-group" style="min-width: 307px">
             {% for capture in all_done_list %}
-                <li class="list-group-item"><a href={% url 'capture:detail' capture.id %} style="color:black">{{ capture.capture_text }}&nbsp;&nbsp;</a>
+                <li class="list-group-item"><a href={% url 'capture:detail' capture.id %} style="color:black">{{ capture.capture_text }}</a>
                 <a href="{% url 'capture:delete' capture.id%}"><img src="{% static 'capture/images/cancel.png' %}" align="right" border="0" ></a></li>
             {% endfor %}
             </ul>
