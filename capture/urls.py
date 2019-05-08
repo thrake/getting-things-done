@@ -24,5 +24,7 @@ urlpatterns = [
     path('capture/today', views.today, name='today'),
     # ex; /capture/calendar
     path('capture/calendar', views.calendar, name='calendar'),
+    # ex; /capture/anytime
+    path('capture/anytime', views.anytime, name='anytime'),
 ]
 

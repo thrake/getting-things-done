@@ -34,9 +34,13 @@ def detail(request, capture_id):
     capture = get_object_or_404(Capture, id=capture_id)
     if request.method == "POST":
         notes = request.POST['detail']
-        date = request.POST['date']
-        capture.due_date = date
-        print(notes)
+        if 'date' in request.POST:
+            date = request.POST['date']
+            capture.due_date = date
+            capture.category = 0
+        if 'anytime' in request.POST:
+            capture.due_date = None
+            capture.category = 7
         capture.notes = notes
         capture.save()
     context = {'capture': capture}
@@ -107,3 +111,14 @@ def calendar(request):
         'bin_amount': bin_amount,
                }
     return render(request, 'capture/calendar.html', context)
+
+def anytime(request):
+    all_anytime_list = Capture.objects.filter(category=7).order_by('-capture_date')
+    amount = Capture.objects.filter(status=0, category=0).count()
+    bin_amount = Capture.objects.filter(category=8).count()
+    context = {
+        'all_anytime_list': all_anytime_list,
+        'amount': amount,
+        'bin_amount': bin_amount,
+               }
+    return render(request, 'capture/anytime.html', context)
