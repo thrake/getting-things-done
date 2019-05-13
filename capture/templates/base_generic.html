@@ -16,10 +16,35 @@
         <title>{% block title %}Getting Things Done{% endblock %}</title>
     </head>
     <body>
-        
+       
+<div class="flex-container">
+    <div class="menu-left">
+        <div>
+            <a href= {% url 'capture:index' %}><i class="fas fa-inbox fa-fw"></i> Inbox ({{ amount }})</a>
+        </div>
+        <div>
+            <a href= {% url 'capture:today' %}><i class="fas fa-star fa-fw"></i> Today</a>
+        </div>
+        <div>
+            <a href= {% url 'capture:calendar' %}><i class="fas fa-calendar-alt fa-fw"></i> Planned</a>
+        </div>
+        <div>
+            <a href= {% url 'capture:anytime' %}><i class="fas fa-folder-open fa-fw"></i> Anytime</a>
+        </div>
+        <div>
+            <a href= {% url 'capture:logbook' %}><i class="fas fa-book fa-fw"></i> Logbook</a>
+        </div>
+         <div>
+            <a href= {% url 'capture:paper_bin' %}><i class="fas fa-recycle fa-fw"></i> Paper bin ({{ bin_amount }})</a>
+        </div>
+        <div>
+            <a href= {% url 'capture:projects' %}><i class="fas fa-tasks fa-fw"></i> Projects </a>
+        </div>
+    </div>
         <div id="content">
             {% block content %}{% endblock %}
         </div>
+</div>
 
     <!-- Optional JavaScript -->
     <!-- jQuery first, then Popper.js, then Bootstrap JS -->

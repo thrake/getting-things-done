@@ -1,0 +1,36 @@
+{% extends "base_generic.html" %}
+
+{% block content %}
+{% load static %}
+
+    <div class="item">   
+
+{% if all_project_items %}
+        <h1>My Projects</h1>
+        <p>
+        {% regroup all_project_items by project as project_list %}
+
+        {% for project in project_list %}
+            
+            <h3>{{ project.grouper }}</h3>
+            <ul class="list-group" style="min-width: 307px">
+                {% for item in project.list %}
+                    <li class="list-group-item">                  
+                    <span title="Mark as finished"><a href="{% url 'capture:log_item' item.id%}"><img src="{% static 'capture/images/checked.png' %}" align="left" border="0" ></a></span>&nbsp;&nbsp;&nbsp;<a href={% url 'capture:detail' item.id %} style="color:black">{{ item.capture_text }}</a>&nbsp;&nbsp;&nbsp;
+                    <span title="Delete to Paper Bin"><a href="{% url 'capture:delete' item.id%}"><img src="{% static 'capture/images/cancel.png' %}" align="right" border="0" ></a></span>
+                    </li>
+                {% endfor %}
+                <br>
+            </ul>
+        {% endfor %}
+        </p>
+
+{% endif %}
+
+    </div>
+    <div class="menu-right">
+        This is the right menu        
+    </div>
+
+{% endblock content%}
+

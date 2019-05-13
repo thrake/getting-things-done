@@ -16,6 +16,8 @@ urlpatterns = [
     path('capture/bin', views.paper_bin, name='paper_bin'),
     # ex; /capture/delete/5
     path('delete/<int:capture_id>', views.delete, name='delete'),
+    # ex; /capture/undelete/5
+    path('undelete/<int:capture_id>', views.undelete, name='undelete'),
     # ex; /capture/logbook
     path('capture/logbook', views.logbook, name='logbook'),
     # ex; /capture/log_item/5
@@ -26,5 +28,7 @@ urlpatterns = [
     path('capture/calendar', views.calendar, name='calendar'),
     # ex; /capture/anytime
     path('capture/anytime', views.anytime, name='anytime'),
+    # ex; /capture/projects
+    path('capture/projects', views.projects, name='projects'),
 ]
 

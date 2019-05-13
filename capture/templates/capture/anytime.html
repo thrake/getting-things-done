@@ -2,27 +2,7 @@
 
 {% block content %}
 {% load static %}
-<div class="flex-container">
-    <div class="menu-left">
-        <div>
-            <a href= {% url 'capture:index' %}><i class="fas fa-inbox fa-fw"></i> Inbox ({{ amount }})</a>
-        </div>
-        <div>
-            <a href= {% url 'capture:today' %}><i class="fas fa-star fa-fw"></i> Today</a>
-        </div>
-        <div>
-            <a href= {% url 'capture:calendar' %}><i class="fas fa-calendar-alt fa-fw"></i> Planned</a>
-        </div>
-        <div>
-            <a href= {% url 'capture:anytime' %}><i class="fas fa-folder-open fa-fw"></i> Anytime</a>
-        </div>
-        <div>
-            <a href= {% url 'capture:logbook' %}><i class="fas fa-book fa-fw"></i> Logbook</a>
-        </div>
-         <div>
-            <a href= {% url 'capture:paper_bin' %}><i class="fas fa-recycle fa-fw"></i> Paper bin ({{ bin_amount }})</a>
-        </div>
-    </div>
+
     <div class="item">   
 
 {% if all_anytime_list %}
@@ -31,9 +11,8 @@
             <ul class="list-group" style="min-width: 307px">
             {% for capture in all_anytime_list %}
                 <li class="list-group-item">
-                    <a href="{% url 'capture:log_item' capture.id%}"><img src="{% static 'capture/images/checked.png' %}" align="left" border="0" ></a>&nbsp;&nbsp;&nbsp;<a href={% url 'capture:detail' capture.id %} style="color:black">{{ capture.capture_text }}&nbsp;&nbsp;</a>
-                    <a href="{% url 'capture:delete' capture.id%}"><img src="{% static 'capture/images/cancel.png' %}" align="right" border="0" ></a></li>
-            {% endfor %}
+                    <span title="Mark as finished"><a href="{% url 'capture:log_item' capture.id%}"><img src="{% static 'capture/images/checked.png' %}" align="left" border="0" ></a></span>&nbsp;&nbsp;&nbsp;<a href={% url 'capture:detail' capture.id %} style="color:black">{{ capture.capture_text }}</a>&nbsp;&nbsp;&nbsp;
+                    <span title="Delete to Paper Bin"><a href="{% url 'capture:delete' capture.id%}"><img src="{% static 'capture/images/cancel.png' %}" align="right" border="0" ></a></span></li>            {% endfor %}
             </ul>
         </p>
 {% endif %}
@@ -42,7 +21,6 @@
     <div class="menu-right">
         This is the right menu        
     </div>
-</div>
 
 {% endblock content%}
 

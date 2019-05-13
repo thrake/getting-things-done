@@ -1,30 +1,40 @@
 {% extends "base_generic.html" %}
 
-{% block title %}GTD - Details View {% endblock title%}
+{% block title %}GTD - Details View{% endblock title%}
 
 {% block content %}
+{% regroup all_project_items by project as project_list %}
+<div class="item">   
 
-<h1>{{ capture.capture_text }}</h1>
-<div>
-    {{ capture.capture_date }}
-</div>
+<h1>{{ capture.capture_text }}</h1> 
 
 <form action="/capture/{{capture.id}}/" method="POST"> 
   <div class="form-row">
-    <div class="form-group col-md-6" style="max-width: 300px">
+    <div class="form-group col-md-3" style="min-width: 300px">
       <label for="inputNextAction">Next action:</label>
       {% csrf_token %}
       <input type="text" class="form-control" name="detail" value="{% if capture.notes %}{{capture.notes}}{% endif %}" autofocus>
     </div>
-    <div class="form-group col-md-6" style="max-width: 300px">
+    <div class="form-group col-md-3" style="max-width: 300px">
+      <label for="project-list-choice">Project:</label><br>
+      <input list="project-list" style="min-width: 200px" class="col-md-3 custom-select custom-select-md" id="project-list-choice" name="project" value="{% if capture.project %}{{capture.project}}{% endif %}"/>
+      <datalist id="project-list">
+        {% spaceless %}
+        {% for project in project_list %}
+          <option value="{{ project.grouper }}">
+        {% endfor %}
+        {% endspaceless %}
+      </datalist>
+    </div>
+    <div class="form-group col-md-3" style="max-width: 300px">
       <label for="chooseDate">When:</label>
-      <input type="date" class="form-control" id="date" name="date" value="{% if capture.due_date %}{{capture.due_date}}{% endif %}">
+      <input type="date" class="form-control" id="date" name="date" value="{% if capture.due_date %}{{capture.due_date|date:"Y-m-d"}}{% endif %}">
       <input type="checkbox" class="form-check-inline" id="anytime" name="anytime" value="anytime"><label for="anytime">Anytime</label>
     </div>
   </div>
   <button type="submit" class="btn btn-primary">Save</button>
 </form>
-
+</div>
 <script>
 window.onload = function() {
   if ({{ capture.category }} == 7) {
@@ -43,4 +53,4 @@ document.getElementById('anytime').onchange = function() {
 };
 </script>
 
-{% endblock content%}
+{% endblock %}
