@@ -44,7 +44,7 @@ def detail(request, capture_id):
             capture.due_date = date
         if 'anytime' in request.POST:
             capture.due_date = None
-            capture.category = 7
+            capture.any_time = 1
         project = request.POST['project']
         if project:
             capture.project = request.POST['project']
@@ -137,7 +137,7 @@ def calendar(request):
     return render(request, 'capture/calendar.html', context)
 
 def anytime(request):
-    all_anytime_list = Capture.objects.filter(status=0, category=7).order_by('-capture_date')
+    all_anytime_list = Capture.objects.filter(status=0, any_time=1).order_by('-capture_date')
     amount = Capture.objects.filter(status=0, category=0).exclude(due_date__range=["2011-01-31","9011-01-31"]).count()
     bin_amount = Capture.objects.filter(category=8).count()
     context = {

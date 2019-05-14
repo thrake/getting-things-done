@@ -11,6 +11,7 @@ class Capture(models.Model):
     status = models.SmallIntegerField(default=0)
     project = models.CharField(null=True, blank=True, max_length=500)
     due_date = models.DateField(null=True, blank=True)
+    any_time = models.SmallIntegerField(default=0)
 
     def __str__(self):
         return self.capture_text
